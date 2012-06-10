@@ -1,3 +1,5 @@
+
+//Main Global Variables
 ArrayList points;
 int width,height,cellSize;
 Grid grid;
@@ -5,6 +7,7 @@ int columns,rows;
 int gameMode;
 boolean pointsInRow;
 
+// Setup of the Application
 void setup()
 {
   width = 640;
@@ -21,18 +24,19 @@ void setup()
   pointsInRow = false;
 }
 
+// Main Loop of the Application Draw()
 void draw()
 {
-  background(0);
-  grid.updatePositions();
-  grid.reDraw();
+  background(0); //Clear the background
+  grid.updatePositions(); //Capture positions of Points and add them to cells in the grid
+  grid.reDraw(); //Re Draw the entire grid, cell by cell.
   
-  if(gameMode==0)
+  if(gameMode==0) //GameMode 0 means we first need to select if we want to start a one or two teams game.
   {
-  selectGameMode()
-  gameMode=1;
+    selectGameMode() //selectGame will render interface to select game
+    gameMode=1; // TEMPORARY: Select Normal Game (No Teams)
   }
-  else if(gameMode==1) runNormalGame();
+  else if(gameMode==1) runNormalGame(); //runNormalGame() control basic game (No Teams)
 }
 
 void selectGameMode()
@@ -42,10 +46,17 @@ void selectGameMode()
 
 void runNormalGame()
 {
+  // Check if Points are in the Row.
   if(!pointsInRow)
   {
     grid.drawRow();
     if(grid.checkPointsInRow()) pointsInRow = true;
   }
-  grid.resetGrid();
+  else
+  {
+  // Game can start!
+    
+  }
+  
+  grid.resetGrid(); // Need to be called to refresh cell states in the grid
 }

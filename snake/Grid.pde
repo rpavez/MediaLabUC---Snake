@@ -1,5 +1,9 @@
 class Grid {
+  
+  // Cells of the grid are stored in a two-dimentional array.
   Cell[][] cells = new Cell[rows][columns];
+  
+  // In constructor we create empty cells
   Grid()
   {
     for(int i=0;i<rows;i++)
@@ -11,6 +15,7 @@ class Grid {
     }
   }
   
+  // We call reDraw() of every Cell
   void reDraw()
   {
     for(int i=0;i<rows;i++)
@@ -22,17 +27,17 @@ class Grid {
     }
   }
   
+  // We check positions of Points tell cells in points positions to show the point.
   void updatePositions()
   {
     for(int i=0;i<points.size();i++)
     {
       Point currentPoint = (Point) points.get(i);
-      //println("rows="+rows+" cols="+columns);
-      //println("("+currentPoint.getX()+","+currentPoint.getY()+")");
       cells[currentPoint.getX()][currentPoint.getY()].setPoint();
     }
   }
   
+  // We draw a line in the middle on the screen
   void drawRow()
   {
     for(int j=0;j<columns;j++)
@@ -41,6 +46,7 @@ class Grid {
     }
   }
   
+  // We check what cells have points and return true if all points are in cells that are also part of the central line (row).
   boolean checkPointsInRow()
   {
     boolean pointsInRow = true;
@@ -58,6 +64,7 @@ class Grid {
     return pointsInRow;
   }
   
+  // We reset state of all cells in the grid.
   void resetGrid()
   {
     for(int i=0;i<points.size();i++)
