@@ -29,11 +29,17 @@ void draw()
   
   if(gameMode==0)
   {
-  // Select Game Mode : Normal / Teams
+  selectGameMode()
   gameMode=1;
   }
   else if(gameMode==1) runNormalGame();
 }
+
+void selectGameMode()
+{
+  // Select Game Mode : Normal / Teams
+}
+
 void runNormalGame()
 {
   if(!pointsInRow)
