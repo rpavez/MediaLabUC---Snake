@@ -2,6 +2,9 @@ class Grid {
   
   // Cells of the grid are stored in a two-dimentional array.
   Cell[][] cells = new Cell[rows][columns];
+  ArrayList fruits;
+  boolean finishedCurrentFruit;
+  Point headPoint;
   
   // In constructor we create empty cells
   Grid()
@@ -13,6 +16,18 @@ class Grid {
         cells[i][j] = new Cell(cellSize*i,cellSize*j);
       }
     }
+    fruits = new ArrayList();
+    finishedCurrentFruit = true;
+  }
+  
+  void addFruit()
+  {
+    if(finishedCurrentFruit) 
+    {
+      println("New fruit!");
+      fruits.add(cells[0][0]);
+    }
+    finishedCurrentFruit = false;
   }
   
   // We call reDraw() of every Cell
@@ -24,6 +39,15 @@ class Grid {
       {
         cells[i][j].reDraw();
       }
+    }
+  }
+  
+  void updateFruits()
+  {
+    for(int i=0;i<fruits.size();i++)
+    {
+      Cell currentCell = (Cell) fruits.get(i);
+      currentCell.setFruit();
     }
   }
   
@@ -78,21 +102,22 @@ class Grid {
 class Cell
 {
   int x,y;
-  boolean hasPoint,isRow;
+  boolean hasPoint,isRow,hasFruit;
   Cell(int xInput,int yInput)
   {
     x=xInput;y=yInput;
-    hasPoint = false; isRow = false;
+    hasPoint = false; isRow = false; hasFruit = false;
   }
   void reDraw()
   {
     noFill();
     if(isRow) {fill(100,100,100);}
     if(hasPoint) {fill(204,102,0);}
+    if(hasFruit) {fill(218,56,56);}
     rect(x,y,cellSize,cellSize);
   }
   
-  void reset() {hasPoint = false; isRow = false;}
+  void reset() {hasPoint = false; isRow = false; hasFruit = false;}
   
   void setRow() {isRow = true;} 
   
@@ -101,4 +126,6 @@ class Cell
   boolean hasPoint() {return hasPoint;}
   
   boolean isRow() {return isRow;}
+  
+  void setFruit() {hasFruit = true;}
 }
