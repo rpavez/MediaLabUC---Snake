@@ -27,9 +27,43 @@ class Grid {
     for(int i=0;i<points.size();i++)
     {
       Point currentPoint = (Point) points.get(i);
-      println("rows="+rows+" cols="+columns);
-      println("("+currentPoint.getX()+","+currentPoint.getY()+")");
+      //println("rows="+rows+" cols="+columns);
+      //println("("+currentPoint.getX()+","+currentPoint.getY()+")");
       cells[currentPoint.getX()][currentPoint.getY()].setPoint();
+    }
+  }
+  
+  void drawRow()
+  {
+    for(int j=0;j<columns;j++)
+    {
+      cells[rows/2][j].setRow();
+    }
+  }
+  
+  boolean checkPointsInRow()
+  {
+    boolean pointsInRow = true;
+    for(int i=0;i<rows;i++)
+      {
+        for(int j=0;j<columns;j++)
+        {
+          if(cells[i][j].hasPoint() & !cells[i][j].isRow())
+          {
+            pointsInRow = false;
+          }
+        }  
+      }
+    if(pointsInRow) println("points in row!");
+    return pointsInRow;
+  }
+  
+  void resetGrid()
+  {
+    for(int i=0;i<points.size();i++)
+    {
+      Point currentPoint = (Point) points.get(i);
+      cells[currentPoint.getX()][currentPoint.getY()].reset();
     }
   }
 }
@@ -37,21 +71,27 @@ class Grid {
 class Cell
 {
   int x,y;
-  boolean filled;
+  boolean hasPoint,isRow;
   Cell(int xInput,int yInput)
   {
     x=xInput;y=yInput;
-    filled = false;
+    hasPoint = false; isRow = false;
   }
   void reDraw()
   {
-    if(filled) {fill(204,102,0);}else{noFill();}
+    noFill();
+    if(isRow) {fill(100,100,100);}
+    if(hasPoint) {fill(204,102,0);}
     rect(x,y,cellSize,cellSize);
-    filled = false;
   }
   
-  void setPoint()
-  {
-    filled = true;
-  }
+  void reset() {hasPoint = false; isRow = false;}
+  
+  void setRow() {isRow = true;} 
+  
+  void setPoint() {hasPoint = true;}
+  
+  boolean hasPoint() {return hasPoint;}
+  
+  boolean isRow() {return isRow;}
 }
