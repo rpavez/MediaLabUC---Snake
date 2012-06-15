@@ -1,4 +1,3 @@
-
 //Main Global Variables
 ArrayList points;
 int width, height, cellSize;
